@@ -1,23 +1,27 @@
 import "./Editor.css";
-import { useState,useRef  } from "react";
+import { useState, useRef, useContext } from "react";
+import { TodoDispatchContext } from "../App";
 
-const Editor =({onCreate})=>{
+const Editor = () => {
 
-    const [ content, setContent] = useState("");
+    // const data = useContext(TodoState);
+    const { onCreate } = useContext(TodoDispatchContext);
+
+    const [content, setContent] = useState("");
     const contentRef = useRef();
 
-    const onChangeContent = (e) =>{
+    const onChangeContent = (e) => {
         setContent(e.target.value);
     }
 
-    const onKeyDown = (e)=>{
-        if(e.keyCode ===13){
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13) {
             onsubmit()
         }
     }
 
-    const onsubmit = () =>{
-        if(content === ""){
+    const onsubmit = () => {
+        if (content === "") {
             contentRef.current.focus();
             return;
         }
@@ -27,9 +31,9 @@ const Editor =({onCreate})=>{
 
     return (
         <div className="Editor">
-            <input 
+            <input
                 ref={contentRef}
-                value = {content}
+                value={content}
                 onKeyDown={onKeyDown}
                 onChange={onChangeContent}
                 placeholder="새로운 Tode..." />
@@ -37,7 +41,7 @@ const Editor =({onCreate})=>{
         </div>
     )
 
-    
+
 }
 
 export default Editor;
